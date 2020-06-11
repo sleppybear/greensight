@@ -8,6 +8,9 @@ class Controller {
 	function __construct($model)
 	{
 		$this->view = new View();
-		$this->model = new $model;
+
+		if (class_exists($model)) {
+            $this->model = new $model;
+        }
 	}
 }

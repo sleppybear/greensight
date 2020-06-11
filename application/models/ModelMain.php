@@ -1,6 +1,6 @@
 <?php
 
-class ModelRegister extends Model
+class ModelMain extends Model
 {
 	public function getUserData($userEmail)
 	{

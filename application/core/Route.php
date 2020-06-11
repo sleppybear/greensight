@@ -10,43 +10,41 @@ class Route
 
         $controllerName = ucwords(strtolower($request_assoc[0]));
 
-        $actionName = 'action'.$controllerName;
-        $modelName = 'Model'.$controllerName;
-        $controllerName = 'Controller'.$controllerName;
+        $controllerFile = "application/controllers/Controller".$controllerName.'.php';
 
-        if(file_exists("application/models/".$modelName.'.php')) {
-            include "application/models/".$modelName.'.php';
+        if (count($request_assoc) === 1 && file_exists($controllerFile)) {
+
+            require $controllerFile;
+
+            switch ($controllerName) {
+//                case 'Register':
+//                case 'Profile':
+//                    $modelName = 'ModelMain';
+//                    break;
+                default:
+                    $modelName = 'ModelMain';
+            }
+
+            if(file_exists("application/models/".$modelName.'.php')) {
+                require "application/models/".$modelName.'.php';
+            }
+
+            $actionName = 'action'.$controllerName;
+
+            $controllerName = 'Controller'.$controllerName;
+
+            $controller = new $controllerName($modelName);
+
+            if(method_exists($controller, $actionName)) {
+                $controller->$actionName();
+            }
+
+        } else {
+            header('HTTP/1.0 400 Bad Request');
+            header('Location: /register');
         }
 
-        if(file_exists("application/controllers/".$controllerName.'.php')) {
-            include "application/controllers/".$controllerName.'.php';
-        }
-
-        $controller = new $controllerName($modelName);
-
-        if(method_exists($controller, $actionName)) {
-            $controller->$actionName();
-        }
-
-//		if (count($request_assoc) === 1 && file_exists($controllerName)) {
-//
-//		} else {
-////		    header('Location: /');
-////            header('HTTP/1.0 400 Bad Request');
-////            echo json_encode(array(
-////                'error' => 'Bad Request'
-////            ));
-//            die();
-//        }
 	}
-
-//	static function ErrorPage404()
-//	{
-//        $host = 'http://'.$_SERVER['HTTP_HOST'].'/';
-//        header('HTTP/1.1 404 Not Found');
-//		header("Status: 404 Not Found");
-//		header('Location:'.$host.'404');
-//    }
 
     static function debug($value) {
         echo '<pre>';

@@ -7,3 +7,8 @@
     <input type="password" name="password_confirm" placeholder="Повторите пароль" class="form-control">
     <button type="button" id="register" class="btn btn-success">Зарегистрироваться</button>
 </form>
+<div class="modal_background">
+    <div class="modal_content">
+        <p class="modal_message">Message</p>
+    </div>
+</div>

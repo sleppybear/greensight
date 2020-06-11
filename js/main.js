@@ -11,8 +11,6 @@ $('#register').click(function () {
         password = $('input[name="password"]').val(),
         password_confirm = $('input[name="password_confirm"]').val();
 
-    //console.log(name, surname, email, password, password_confirm);
-
     $.ajax({
         url: '/register',
         type: 'POST',
@@ -35,12 +33,27 @@ $('#register').click(function () {
                 if (data.errorType === 1) {
                     data.fields.forEach(function (field) {
                         $(`input[name="${field}"]`).addClass('error');
-                    })
+                     })
                 }
-                //$('.message').removeClass('hide').text(data.message);
-                alert(data.message);
+                throwMessage(data.message);
             }
             $('#register').prop('disabled', false)
         }
     });
 });
+
+/*
+    Модальное окно (сообщение об ошибке)
+ */
+function throwMessage(message) {
+
+    $('.modal_background').css('display','flex');
+
+    $('.modal_message').text(message);
+
+    window.onclick = function (event) {
+        //if (event.target === $('#modal_background')) {
+            $('.modal_background').css('display','none');
+        //}
+    }
+}

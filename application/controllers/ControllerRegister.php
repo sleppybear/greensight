@@ -18,19 +18,6 @@ class ControllerRegister extends Controller
 
             $error_fields = [];
 
-            $check_user = $this->model->getUserData($email);
-
-            if ($check_user) {
-                $response = [
-                    'status' => false,
-                    'errorType' => 1,
-                    'message' => 'Пользователь с таким Email уже существует',
-                    'fields' => ['email']
-                ];
-                echo json_encode($response);
-                die();
-            }
-
             if ($name === '') {
                 $error_fields[] = 'name';
             }
@@ -55,8 +42,21 @@ class ControllerRegister extends Controller
                 $response = [
                     'status' => false,
                     'errorType' => 1,
-                    'message' => 'Проверьте правильность полей',
+                    'message' => 'Проверьте правильность заполнения полей',
                     'fields' => $error_fields
+                ];
+                echo json_encode($response);
+                die();
+            }
+
+            $check_user = $this->model->getUserData($email);
+
+            if ($check_user) {
+                $response = [
+                    'status' => false,
+                    'errorType' => 1,
+                    'message' => 'Пользователь с таким Email уже существует',
+                    'fields' => ['email']
                 ];
                 echo json_encode($response);
                 die();
@@ -67,14 +67,24 @@ class ControllerRegister extends Controller
                 //$password = md5($password);
                 //$success = $db->query("INSERT INTO `users` (`name`, `surname`, `email`, `password`) VALUES ('$name', '$surname', '$email', '$password')");
 
-                $success = 1;
+                $success = true;
 
                 if ($success) {
+
+                    session_start();
+
+                    $_SESSION['user'] = [
+                        'name' => $name,
+                        'surname' => $surname,
+                        'email' => $email
+                    ];
+
                     $response = [
                         'status' => true,
                         'message' => 'Регистрация прошла успешно'
                     ];
                     echo json_encode($response);
+
                 } else {
                     $response = [
                         'status' => false,
@@ -86,8 +96,9 @@ class ControllerRegister extends Controller
             } else {
                 $response = [
                     'status' => false,
-                    'errorType' => 3,
-                    'message' => 'Введённые пароли не совпадают'
+                    'errorType' => 1,
+                    'message' => 'Введённые пароли не совпадают',
+                    'fields' => ['password', 'password_confirm']
                 ];
                 echo json_encode($response);
             }
