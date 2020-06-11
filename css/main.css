@@ -77,3 +77,9 @@ input {
     font-weight: bold;
     cursor: pointer;
 }
+
+.user_info {
+    display: flex;
+    flex-direction: column;
+    height: min-content;
+}

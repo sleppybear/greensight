@@ -2,7 +2,7 @@
 
 class ControllerProfile extends Controller
 {
-    function actionProfile()
+    public function actionProfile()
     {
         session_start();
 
