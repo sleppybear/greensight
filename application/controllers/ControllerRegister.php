@@ -18,11 +18,11 @@ class ControllerRegister extends Controller
 
             $error_fields = [];
 
-            if ($name === '') {
+            if ($name === '' || !filter_var($email, FILTER_SANITIZE_STRING)) {
                 $error_fields[] = 'name';
             }
 
-            if ($surname === '') {
+            if ($surname === '' || !filter_var($email, FILTER_SANITIZE_STRING)) {
                 $error_fields[] = 'surname';
             }
 
@@ -30,11 +30,11 @@ class ControllerRegister extends Controller
                 $error_fields[] = 'email';
             }
 
-            if (strlen($password) < 5) {
+            if (strlen($password) < 5 || !filter_var($email, FILTER_SANITIZE_STRING)) {
                 $error_fields[] = 'password';
             }
 
-            if ($password_confirm === '') {
+            if ($password_confirm === '' || !filter_var($email, FILTER_SANITIZE_STRING)) {
                 $error_fields[] = 'password_confirm';
             }
 

@@ -3,8 +3,6 @@
  */
 $('#register').click(function () {
 
-    //event.preventDefault();
-
     let name = $('input[name="name"]').val(),
         surname = $('input[name="surname"]').val(),
         email = $('input[name="email"]').val(),
