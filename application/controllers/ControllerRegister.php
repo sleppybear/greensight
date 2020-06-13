@@ -30,7 +30,7 @@ class ControllerRegister extends Controller
                 $error_fields[] = 'email';
             }
 
-            if ($password === '') {
+            if (strlen($password) < 5) {
                 $error_fields[] = 'password';
             }
 
@@ -42,7 +42,7 @@ class ControllerRegister extends Controller
                 $response = [
                     'status' => false,
                     'errorType' => 1,
-                    'message' => 'Проверьте правильность заполнения полей',
+                    'message' => 'Некоторые поля формы заполненены неверно',
                     'fields' => $error_fields
                 ];
                 echo json_encode($response);
@@ -122,7 +122,7 @@ class ControllerRegister extends Controller
         $log = fopen($logFile, 'a+');
 
         if ($log) {
-            $logText = date('Y-m-d H:i:s').' - '.$logText."\r\n";
+            $logText = date('d-m-Y H:i:s').' - '.$logText."\r\n";
             fwrite($log, $logText);
             fclose($log);
         }

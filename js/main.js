@@ -26,16 +26,16 @@ $('#register').click(function () {
             $('#register').prop('disabled', true);
         },
         success: function (data) {
-            console.log(data);
             if (data.status) {
                 document.location.href = '/profile';
             } else {
                 if (data.errorType === 1) {
                     data.fields.forEach(function (field) {
-                        $(`input[name="${field}"]`).addClass('error');
+                        $(`.form-control[name="${field}"]`).addClass('red-field');
                      })
                 }
-                throwMessage(data.message);
+                $('.modal-body > p').text(data.message);
+                $('.modal').modal();
             }
             $('#register').prop('disabled', false)
         }
@@ -43,17 +43,9 @@ $('#register').click(function () {
 });
 
 /*
-    Модальное окно (сообщение об ошибке)
+    Отключение выделения поля с ошибкой ввода
  */
-function throwMessage(message) {
+$('.form-control').focus(function(event){
 
-    $('.modal_background').css('display','flex');
-
-    $('.modal_message').text(message);
-
-    window.onclick = function (event) {
-        //if (event.target === $('#modal_background')) {
-            $('.modal_background').css('display','none');
-        //}
-    }
-}
+    color = $(`.form-control[name="${event.target.name}"]`).removeClass('red-field');
+});
