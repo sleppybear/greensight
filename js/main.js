@@ -20,7 +20,7 @@ $('#register').click(function () {
             password: password,
             password_confirm: password_confirm
         },
-        beforeSend: function() {
+        beforeSend: function () {
             $('#register').prop('disabled', true);
         },
         success: function (data) {
@@ -30,7 +30,7 @@ $('#register').click(function () {
                 if (data.errorType === 1) {
                     data.fields.forEach(function (field) {
                         $(`.form-control[name="${field}"]`).addClass('red-field');
-                     })
+                    })
                 }
                 $('.modal-body > p').text(data.message);
                 $('.modal').modal();
@@ -43,7 +43,7 @@ $('#register').click(function () {
 /*
     Отключение выделения поля с ошибкой ввода
  */
-$('.form-control').focus(function(event){
+$('.form-control').focus(function (event) {
 
     color = $(`.form-control[name="${event.target.name}"]`).removeClass('red-field');
 });
