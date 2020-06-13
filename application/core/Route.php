@@ -17,12 +17,12 @@ class Route
             require $controllerFile;
 
             switch ($controllerName) {
-//                case 'Register':
-//                case 'Profile':
-//                    $modelName = 'ModelMain';
-//                    break;
-                default:
+                case 'Registration':
+                case 'Profile':
                     $modelName = 'ModelMain';
+                    break;
+                default:
+                    $modelName = 'ModelDefault';
             }
 
             if(file_exists("application/models/".$modelName.'.php')) {
@@ -37,11 +37,13 @@ class Route
 
             if(method_exists($controller, $actionName)) {
                 $controller->$actionName();
+            } else {
+                die();
             }
 
         } else {
             header('HTTP/1.0 400 Bad Request');
-            header('Location: /register');
+            header('Location: /registration');
         }
 
 	}

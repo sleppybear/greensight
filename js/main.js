@@ -10,7 +10,7 @@ $('#register').click(function () {
         password_confirm = $('input[name="password_confirm"]').val();
 
     $.ajax({
-        url: '/register',
+        url: '/registration',
         type: 'POST',
         dataType: 'json',
         data: {

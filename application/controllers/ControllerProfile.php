@@ -11,7 +11,7 @@ class ControllerProfile extends Controller
 
             unset($_SESSION['user']);
         } else {
-            header('Location: /register');
+            header('Location: /registration');
         }
     }
 }

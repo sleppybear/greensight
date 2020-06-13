@@ -1,12 +1,12 @@
 <?php
 
-class ControllerRegister extends Controller
+class ControllerRegistration extends Controller
 {
-    public function actionRegister()
+    public function actionRegistration()
     {
         if (empty($_POST)) {
 
-            $this->view->generate('view_register.php','view_template.php');
+            $this->view->generate('view_registration.php','view_template.php');
 
         } else {
 
@@ -42,7 +42,7 @@ class ControllerRegister extends Controller
                 $response = [
                     'status' => false,
                     'errorType' => 1,
-                    'message' => 'Некоторые поля формы заполненены неверно',
+                    'message' => 'Некоторые поля формы пустые или заполненены неверно',
                     'fields' => $error_fields
                 ];
                 echo json_encode($response);
@@ -118,7 +118,7 @@ class ControllerRegister extends Controller
             mkdir('logs');
         }
 
-        $logFile = 'logs/register.log';
+        $logFile = 'logs/registration.log';
         $log = fopen($logFile, 'a+');
 
         if ($log) {
