@@ -66,9 +66,6 @@ class ControllerRegistration extends Controller
                 die();
             }
 
-            $logText = $name.' '.$surname.' '.$email.' - пользователь добавлен';
-            $this->logWrite($logText);
-
             if ($password === $password_confirm) {
 
                 //$password = md5($password);
@@ -77,6 +74,9 @@ class ControllerRegistration extends Controller
                 $success = true;
 
                 if ($success) {
+
+                    $logText = $name.' '.$surname.' '.$email.' - пользователь добавлен';
+                    $this->logWrite($logText);
 
                     session_start();
 
